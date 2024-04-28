@@ -14,7 +14,7 @@ module Orthoses
             content = store[base_name]
             mailer_class.action_methods.each do |action_method|
               method_object = mailer_class.instance_method(action_method)
-              parameters = method_parameters_to_rbs_method_type(method_object).to_s.gsub(' -> untyped', '')
+              parameters = method_parameters_to_rbs_method_type(method_object).to_s.sub(/ -> untyped\z/, '')
               content << "def self.#{action_method}: #{parameters} -> ::ActionMailer::MessageDelivery"
             end
           end
